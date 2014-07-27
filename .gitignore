@@ -20,7 +20,7 @@ tmp/
 *.swp
 *~.nib
 local.properties
-.setting/
+.settings/
 .loadpath
 
 .externalToolBuilder/
