@@ -169,6 +169,8 @@ public class WarManager
         t.setAdminEnabledPVP(true);
       }
     }
+    
+    TownyUniverse.getDataSource().saveNations();
   }
   
   public static boolean requestPeace(Nation nat, Nation onat, boolean admin)
