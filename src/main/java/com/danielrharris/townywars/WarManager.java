@@ -32,6 +32,8 @@ import org.bukkit.entity.Player;
 
 public class WarManager
 {
+
+  private static String fileSeparator = System.getProperty("file.separator");
   private static Set<War> activeWars = new HashSet();
   private static Set<String> requestedPeace = new HashSet();
   public static Map<String, MutableInteger> neutral = new HashMap();
@@ -41,7 +43,7 @@ public class WarManager
   public static void save(File dataFolder)
     throws Exception
   {
-	  FileMgmt.CheckYMLExists(new File("plugins\\TownyWars\\activeWars.yml"));
+	  FileMgmt.CheckYMLExists(new File("plugins" + fileSeparator + "TownyWars" + fileSeparator + "activeWars.yml"));
 	    if(!WarManager.getWars().isEmpty()){
 		    String s = new String("");
 		    
@@ -50,12 +52,12 @@ public class WarManager
 		    
 		    s = s.substring(0, s.length()-1);
 		    
-		    FileMgmt.stringToFile(s, "plugins\\TownyWars\\activeWars.yml");
+		    FileMgmt.stringToFile(s, "plugins" + fileSeparator + "TownyWars" + fileSeparator + "activeWars.yml");
 		    }
     
     //save Rebellions
     //tripple space to separate rebellion objects
-    FileMgmt.CheckYMLExists(new File("plugins\\TownyWars\\rebellions.yml"));
+    FileMgmt.CheckYMLExists(new File("plugins" + fileSeparator + "TownyWars" + fileSeparator + "rebellions.yml"));
     if(!Rebellion.getAllRebellions().isEmpty()){
 	    String s = new String("");
 	    
@@ -64,19 +66,19 @@ public class WarManager
 	    
 	    s = s.substring(0, s.length()-1);
 	    
-	    FileMgmt.stringToFile(s, "plugins\\TownyWars\\rebellions.yml");
+	    FileMgmt.stringToFile(s, "plugins" + fileSeparator + "TownyWars" + fileSeparator + "rebellions.yml");
 	    }
   }
   
   public static void load(File dataFolder)
     throws Exception
   {
-	  	String folders[] = {"plugins\\TownyWars"};
+	  	String folders[] = {"plugins" + fileSeparator + "TownyWars"};
 	  	FileMgmt.checkFolders(folders);
 	  	
 	  	 //load rebellions
-	    FileMgmt.CheckYMLExists(new File("plugins\\TownyWars\\rebellions.yml"));
-	    String s = FileMgmt.convertFileToString(new File("plugins\\TownyWars\\rebellions.yml"));
+	    FileMgmt.CheckYMLExists(new File("plugins" + fileSeparator + "TownyWars" + fileSeparator + "rebellions.yml"));
+	    String s = FileMgmt.convertFileToString(new File("plugins" + fileSeparator + "TownyWars" + fileSeparator + "rebellions.yml"));
 	    
 	    if(!s.isEmpty()){
 		    ArrayList<String> slist = new ArrayList<String>();
@@ -89,8 +91,8 @@ public class WarManager
 	    }
 	    
 	    //load wars
-	  	FileMgmt.CheckYMLExists(new File("plugins\\TownyWars\\activeWars.yml"));
-	    String sw = FileMgmt.convertFileToString(new File("plugins\\TownyWars\\activeWars.yml"));
+	  	FileMgmt.CheckYMLExists(new File("plugins" + fileSeparator + "TownyWars" + fileSeparator + "activeWars.yml"));
+	    String sw = FileMgmt.convertFileToString(new File("plugins" + fileSeparator + "TownyWars" + fileSeparator + "activeWars.yml"));
 	    
 	    if(!sw.isEmpty()){
 		    ArrayList<String> slist = new ArrayList<String>();
