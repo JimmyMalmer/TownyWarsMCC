@@ -217,9 +217,20 @@ public class War {
 				try {
 						Nation winner = getEnemy(nnation);
 						Nation looser = nnation;
-						winner.collect(looser.getHoldingBalance());
-						looser.pay(looser.getHoldingBalance(),
-								"Lost the freakin war");
+						boolean rebelsWon = false;
+						for(Rebellion r : Rebellion.getAllRebellions())
+							if(r.getRebelnation() == winner){
+								rebelsWon = true;
+								break;
+							}
+						if(!rebelsWon){
+							winner.collect(looser.getHoldingBalance());
+							looser.pay(looser.getHoldingBalance(),
+									"Lost the freakin war");
+						} else{
+							winner.getCapital().collect(winner.getHoldingBalance());
+							winner.pay(winner.getHoldingBalance(), "derp");
+						}
 						WarManager.endWar(winner, looser, false);
 
 				} catch (Exception ex) {

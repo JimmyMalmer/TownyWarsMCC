@@ -284,6 +284,13 @@ public class WarManager
       TownyWars.tUniverse.getNationsMap().remove(looser.getName());
     }
     Rebellion.getAllRebellions().remove(rebellion);
+    
+    if(looser.getTowns().size() == 0)
+    	TownyUniverse.getDataSource().removeNation(looser);
+    if(winner.getTowns().size() == 0)
+    	TownyUniverse.getDataSource().removeNation(winner);
+    
+    TownyUniverse.getDataSource().saveNations();
   }
   
   public static boolean hasBeenOffered(War ww, Nation nation)

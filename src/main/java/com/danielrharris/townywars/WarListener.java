@@ -6,6 +6,7 @@ import com.palmergames.bukkit.towny.event.NationRemoveTownEvent;
 import com.palmergames.bukkit.towny.event.TownAddResidentEvent;
 import com.palmergames.bukkit.towny.event.TownRemoveResidentEvent;
 import com.palmergames.bukkit.towny.exceptions.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.exceptions.EconomyException;
 import com.palmergames.bukkit.towny.exceptions.EmptyNationException;
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
 import com.palmergames.bukkit.towny.object.Nation;
@@ -72,6 +73,26 @@ public class WarListener
 			//will be called on the last iteration
 			;
 		}
+	  
+	  for(Rebellion r : Rebellion.getAllRebellions())
+	    	if(r.getMotherNation() == nation){
+	    		Rebellion.getAllRebellions().remove(r);
+	    		if(r.getRebelnation() != null){
+	    			try {
+	    				r.getRebelnation().getCapital().collect(r.getRebelnation().getHoldingBalance());
+	    				r.getRebelnation().pay(r.getRebelnation().getHoldingBalance(), "Lost rebellion. Tough luck!");
+	    			} catch (EconomyException e1) {
+	    				e1.printStackTrace();
+	    			}
+	    			TownyUniverse.getDataSource().removeNation(r.getRebelnation());
+	    		}
+	    		break;
+	    	}
+	  
+	  if(nation.getTowns().size() == 0)
+		  TownyUniverse.getDataSource().removeNation(nation);
+	  
+	  TownyUniverse.getDataSource().saveNations();
   }
   @EventHandler
   public void onPlayerJoin(PlayerJoinEvent event)
@@ -176,6 +197,8 @@ public class WarListener
     	    		break;
     	    	}
     }
+    
+    TownyUniverse.getDataSource().saveNations();
     WarManager.townremove = null;
   }
   

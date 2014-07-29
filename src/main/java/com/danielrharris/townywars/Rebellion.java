@@ -13,6 +13,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import com.palmergames.bukkit.towny.exceptions.AlreadyRegisteredException;
+import com.palmergames.bukkit.towny.exceptions.EconomyException;
 import com.palmergames.bukkit.towny.exceptions.EmptyNationException;
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
 import com.palmergames.bukkit.towny.exceptions.TownyException;
@@ -217,6 +218,12 @@ public class Rebellion {
 	}
 	
 	public void peace(){
+		try {
+			motherNation.collect(rebelnation.getHoldingBalance());
+			rebelnation.pay(rebelnation.getHoldingBalance(), "Lost rebellion. Tough luck!");
+		} catch (EconomyException e1) {
+			e1.printStackTrace();
+		}
 		
 		ArrayList<Town> l = new ArrayList<Town>(rebelnation.getTowns());
 		for(Town town : l)
