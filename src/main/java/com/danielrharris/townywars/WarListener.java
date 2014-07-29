@@ -50,23 +50,12 @@ public class WarListener
 				  break;
 			  }
 	  
-	  for(Rebellion r : Rebellion.getAllRebellions())
-	    	if(r.getMotherNation() == nation){
-	    		Rebellion.getAllRebellions().remove(r);
-	    		if(r.getRebelnation() != null){
-	    			try {
-	    				r.getRebelnation().getCapital().collect(r.getRebelnation().getHoldingBalance());
-	    				r.getRebelnation().pay(r.getRebelnation().getHoldingBalance(), "Lost rebellion. Tough luck!");
-	    			} catch (EconomyException e1) {
-	    				e1.printStackTrace();
-	    			}
-	    			TownyUniverse.getDataSource().removeNation(r.getRebelnation());
-	    		}
-	    		break;
-	    	}
-	  
-	  if(war == null)
+	  if(war == null){
+		  for(Rebellion r : Rebellion.getAllRebellions())
+		    	if(r.getMotherNation() == nation)
+		    		Rebellion.getAllRebellions().remove(r);
 		  return;
+	  }
 	  
 	  WarManager.getWars().remove(war);
 	  
