@@ -277,7 +277,7 @@ public class WarManager
       }
       t.setAdminEnabledPVP(false);
     }
-    if (!peace && winner != rebellion.getRebelnation())
+    if (!peace && isRebelWar && winner != rebellion.getRebelnation())
     {
       TownyUniverse.getDataSource().removeNation(looser);
       looser.clear();

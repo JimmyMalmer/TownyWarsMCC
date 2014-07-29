@@ -217,19 +217,19 @@ public class War {
 				try {
 						Nation winner = getEnemy(nnation);
 						Nation looser = nnation;
-						boolean rebelsWon = false;
-						for(Rebellion r : Rebellion.getAllRebellions())
+						boolean endWarTransfersDone = false;
+						for(Rebellion r : Rebellion.getAllRebellions()){
 							if(r.getRebelnation() == winner){
-								rebelsWon = true;
+								winner.getCapital().collect(winner.getHoldingBalance());
+								winner.pay(winner.getHoldingBalance(), "You are disbanded. You don't need money.");
+								endWarTransfersDone = true;
 								break;
 							}
-						if(!rebelsWon){
+						}
+						
+						if(!endWarTransfersDone){
 							winner.collect(looser.getHoldingBalance());
-							looser.pay(looser.getHoldingBalance(),
-									"Lost the freakin war");
-						} else{
-							winner.getCapital().collect(winner.getHoldingBalance());
-							winner.pay(winner.getHoldingBalance(), "derp");
+							looser.pay(looser.getHoldingBalance(), "Conquered. Tough luck!");
 						}
 						WarManager.endWar(winner, looser, false);
 

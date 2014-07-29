@@ -50,6 +50,21 @@ public class WarListener
 				  break;
 			  }
 	  
+	  for(Rebellion r : Rebellion.getAllRebellions())
+	    	if(r.getMotherNation() == nation){
+	    		Rebellion.getAllRebellions().remove(r);
+	    		if(r.getRebelnation() != null){
+	    			try {
+	    				r.getRebelnation().getCapital().collect(r.getRebelnation().getHoldingBalance());
+	    				r.getRebelnation().pay(r.getRebelnation().getHoldingBalance(), "Lost rebellion. Tough luck!");
+	    			} catch (EconomyException e1) {
+	    				e1.printStackTrace();
+	    			}
+	    			TownyUniverse.getDataSource().removeNation(r.getRebelnation());
+	    		}
+	    		break;
+	    	}
+	  
 	  if(war == null)
 		  return;
 	  
@@ -73,21 +88,6 @@ public class WarListener
 			//will be called on the last iteration
 			;
 		}
-	  
-	  for(Rebellion r : Rebellion.getAllRebellions())
-	    	if(r.getMotherNation() == nation){
-	    		Rebellion.getAllRebellions().remove(r);
-	    		if(r.getRebelnation() != null){
-	    			try {
-	    				r.getRebelnation().getCapital().collect(r.getRebelnation().getHoldingBalance());
-	    				r.getRebelnation().pay(r.getRebelnation().getHoldingBalance(), "Lost rebellion. Tough luck!");
-	    			} catch (EconomyException e1) {
-	    				e1.printStackTrace();
-	    			}
-	    			TownyUniverse.getDataSource().removeNation(r.getRebelnation());
-	    		}
-	    		break;
-	    	}
 	  
 	  if(nation.getTowns().size() == 0)
 		  TownyUniverse.getDataSource().removeNation(nation);
