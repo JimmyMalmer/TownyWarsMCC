@@ -52,7 +52,7 @@ public class WarListener
 	  
 	  if(war == null){
 		  for(Rebellion r : Rebellion.getAllRebellions())
-		    	if(r.getMotherNation() == nation)
+		    	if(r.getMotherNation().getName().equals(event.getNationName()))
 		    		Rebellion.getAllRebellions().remove(r);
 		  return;
 	  }
@@ -63,6 +63,8 @@ public class WarListener
 		  Rebellion.getAllRebellions().remove(war.getRebellion());
 		  if(war.getRebellion().getRebelnation() != nation)
 			  TownyUniverse.getDataSource().deleteNation(war.getRebellion().getRebelnation());
+		  else if(war.getRebellion().getMotherNation() != nation)
+			  war.getRebellion().peace();
 	  }
 	  
 	  ArrayList<Town> copy = new ArrayList<Town>(nation.getTowns());

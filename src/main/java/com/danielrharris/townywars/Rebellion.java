@@ -172,6 +172,9 @@ public class Rebellion {
 		}
 		
 		WarManager.createWar(rebelnation, motherNation, cs, this);
+		TownyUniverse.getDataSource().saveTown(leader);
+		TownyUniverse.getDataSource().saveNation(rebelnation);
+		TownyUniverse.getDataSource().saveNationList();
 		cs.sendMessage(ChatColor.RED + "You executed your rebellion and are now at war with your nation!");
 	}
 	

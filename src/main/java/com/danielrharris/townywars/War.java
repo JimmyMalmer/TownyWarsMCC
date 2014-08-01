@@ -194,12 +194,6 @@ public class War {
 				}
 				nation.addTown(town);
 				town.setNation(nation);
-				int mr = nnation.getNumTowns() + 1;
-				if (mr != 0) {
-					mr = (int) (nnation.getHoldingBalance() / mr);
-					nnation.pay(mr, "War issues");
-					nation.collect(mr);
-				}
 				TownyUniverse.getDataSource().saveNation(nation);
 				TownyUniverse.getDataSource().saveNation(nnation);
 				broadcast(
