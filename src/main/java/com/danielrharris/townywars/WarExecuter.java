@@ -400,11 +400,11 @@ class WarExecutor implements CommandExecutor
 	  }
 	  for(Rebellion r : Rebellion.getAllRebellions()){
 	  	try {
-			if(r.getName().equals(strings[1]) && res.getTown().getNation() == r.getMotherNation()){
+			if(r.getName().equals(strings[1]	) && res.getTown().getNation() == r.getMotherNation()){
 				try {
 					r.addRebell(res.getTown());
 					cs.sendMessage(ChatColor.YELLOW + "You join the rebellion " + r.getName() + "!");
-					Bukkit.getPlayer(r.getLeader().getMayor().getName()).sendMessage(ChatColor.YELLOW + r.getName() + " joined your rebellion!");
+					Bukkit.getPlayer(r.getLeader().getMayor().getName()).sendMessage(ChatColor.YELLOW + res.getTown().getName() + " joined your rebellion!");
 					return true;
 				} catch (NotRegisteredException e) {
 					// TODO Auto-generated catch block

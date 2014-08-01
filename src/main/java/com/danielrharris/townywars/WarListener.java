@@ -123,7 +123,16 @@ public class WarListener
     if (war == null) {
       return;
     }
-    war.chargeTownPoints(n, event.getTown(), TownyWars.pPlayer);
+    try {
+		if(WarManager.getWarForNation(event.getTown().getNation()).getTownPoints(event.getTown()) > TownyWars.pPlayer)
+			war.chargeTownPoints(n, event.getTown(), TownyWars.pPlayer);
+	} catch (NotRegisteredException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
   
   @EventHandler
@@ -171,7 +180,8 @@ public class WarListener
       townadd = event.getTown();
       try
       {
-        event.getNation().addTown(event.getTown());
+    	  if(event.getNation().getNumTowns() != 0)
+    		  event.getNation().addTown(event.getTown());
       }
       catch (AlreadyRegisteredException ex)
       {
