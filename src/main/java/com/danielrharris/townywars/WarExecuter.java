@@ -31,9 +31,6 @@ class WarExecutor implements CommandExecutor
   {
     if (strings.length == 0)
     {
-      cs.sendMessage(ChatColor.GREEN + "Towny Wars Configuration Information:");
-      cs.sendMessage(ChatColor.BLUE + "Defense Points Calculation: " + ChatColor.AQUA + "Per Player: " + ChatColor.YELLOW + TownyWars.pPlayer + ChatColor.AQUA + " || Per Chunk: " + ChatColor.YELLOW + TownyWars.pPlayer);
-      cs.sendMessage(ChatColor.BLUE + "Costs: " + ChatColor.AQUA + "Per Death: " + ChatColor.YELLOW + TownyWars.pKill + ChatColor.AQUA + " || Declare Cost: " + ChatColor.YELLOW + TownyWars.declareCost + ChatColor.AQUA + " || End Cost: " + ChatColor.YELLOW + TownyWars.endCost);
       cs.sendMessage(ChatColor.GREEN + "For help with TownyWars, type /twar help");
       return true;
     }
