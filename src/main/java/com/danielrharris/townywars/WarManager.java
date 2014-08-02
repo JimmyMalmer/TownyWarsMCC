@@ -166,9 +166,11 @@ public class WarManager
       }
       for (Town t : nat.getTowns()) {
         t.setAdminEnabledPVP(true);
+        t.setPVP(true);
       }
       for (Town t : onat.getTowns()) {
         t.setAdminEnabledPVP(true);
+        t.setPVP(true);
       }
     }
     
@@ -276,6 +278,7 @@ public class WarManager
         }
       }
       t.setAdminEnabledPVP(false);
+      t.setPVP(false);
     }
     if (!peace && isRebelWar && winner != rebellion.getRebelnation())
     {
