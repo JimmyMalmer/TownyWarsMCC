@@ -165,15 +165,14 @@ public class WarManager
         }
       }
       for (Town t : nat.getTowns()) {
-        t.setAdminEnabledPVP(true);
         t.setPVP(true);
       }
       for (Town t : onat.getTowns()) {
-        t.setAdminEnabledPVP(true);
         t.setPVP(true);
       }
     }
     
+    TownyUniverse.getDataSource().saveTowns();
     TownyUniverse.getDataSource().saveNations();
   }
   
@@ -239,7 +238,7 @@ public class WarManager
     War.broadcast(winner, ChatColor.GREEN + "You are now at peace!");
     War.broadcast(looser, ChatColor.GREEN + "You are now at peace!");
     for (Town t : winner.getTowns()) {
-      t.setAdminEnabledPVP(false);
+      t.setPVP(false);
     }
     
     //rebels win
@@ -277,7 +276,6 @@ public class WarManager
           Logger.getLogger(WarManager.class.getName()).log(Level.SEVERE, null, ex);
         }
       }
-      t.setAdminEnabledPVP(false);
       t.setPVP(false);
     }
     if (!peace && isRebelWar && winner != rebellion.getRebelnation())
@@ -293,6 +291,7 @@ public class WarManager
     if(winner.getTowns().size() == 0)
     	TownyUniverse.getDataSource().removeNation(winner);
     
+    TownyUniverse.getDataSource().saveTowns();
     TownyUniverse.getDataSource().saveNations();
   }
   

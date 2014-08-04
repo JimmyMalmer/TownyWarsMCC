@@ -132,6 +132,14 @@ public class War {
 		return s;
 	}
 	
+	public void removeTown(Town town, Nation nation){
+		towns.remove(town);
+		if(nation == nation1)
+			nation1points--;
+		else if(nation == nation2)
+			nation2points--;
+	}
+	
 	public Integer getNationPoints(Nation nation) throws Exception {
 		if(nation == nation1)
 			return nation1points;
@@ -158,7 +166,9 @@ public class War {
 	}
 
 	boolean hasNation(Nation onation) {
-		return onation == nation1 || onation == nation2;
+		if(onation != nation1 && onation != nation2 && (onation.getName().equals(nation1.getName()) || onation.getName().equals(nation2.getName())))
+				System.out.println("hasNation() error. Please report to Noxer");
+		return (onation.getName().equals(nation1.getName()) || onation.getName().equals(nation2.getName()));
 	}
 
 	public Nation getEnemy(Nation onation) throws Exception {

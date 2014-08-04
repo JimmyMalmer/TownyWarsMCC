@@ -35,7 +35,6 @@ public class WarListener
   
   WarListener(TownyWars aThis) {}
   
-  
   @EventHandler
   public void onNationDelete(DeleteNationEvent event){
 	  
@@ -171,7 +170,15 @@ public class WarListener
   @EventHandler
   public void onNationRemove(NationRemoveTownEvent event)
   {
-    if (event.getTown() != WarManager.townremove)
+	  War war = WarManager.getWarForNation(event.getNation());
+      if (war == null) {
+        return;
+      }
+      
+      war.removeTown(event.getTown(), event.getNation());
+	  
+	 //MAKE FUCKING WORK when a town is disbanded because of lack of funds
+    /*if (event.getTown() != WarManager.townremove)
     {
       War war = WarManager.getWarForNation(event.getNation());
       if (war == null) {
@@ -200,7 +207,7 @@ public class WarListener
     }
     
     TownyUniverse.getDataSource().saveNations();
-    WarManager.townremove = null;
+    WarManager.townremove = null;*/
   }
   
   @EventHandler
