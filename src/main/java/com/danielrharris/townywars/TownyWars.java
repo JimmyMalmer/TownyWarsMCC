@@ -57,7 +57,7 @@ public class TownyWars
     for (War w : WarManager.getWars()) {
       for (Nation nation : w.getNationsInWar()) {
           for (Town t : nation.getTowns()) {
-            t.setAdminEnabledPVP(true);
+            t.setPVP(true);
           }
       }
     }
