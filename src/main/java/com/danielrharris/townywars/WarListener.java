@@ -66,22 +66,6 @@ public class WarListener
 			  war.getRebellion().peace();
 	  }
 	  
-	  ArrayList<Town> copy = new ArrayList<Town>(nation.getTowns());
-	  
-	  for(Town town : copy)
-		try {
-			nation.removeTown(town);
-		} catch (NotRegisteredException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (EmptyNationException e) {
-			//will be called on the last iteration
-			;
-		}
-	  
-	  if(nation.getTowns().size() == 0)
-		  TownyUniverse.getDataSource().removeNation(nation);
-	  
 	  TownyUniverse.getDataSource().saveNations();
   }
   @EventHandler

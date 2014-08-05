@@ -53,7 +53,8 @@ public class WarManager
 		    s = s.substring(0, s.length()-1);
 		    
 		    FileMgmt.stringToFile(s, "plugins" + fileSeparator + "TownyWars" + fileSeparator + "activeWars.yml");
-		    }
+		 } else
+	    	FileMgmt.stringToFile("", "plugins" + fileSeparator + "TownyWars" + fileSeparator + "activeWars.yml");
     
     //save Rebellions
     //tripple space to separate rebellion objects
@@ -67,7 +68,8 @@ public class WarManager
 	    s = s.substring(0, s.length()-1);
 	    
 	    FileMgmt.stringToFile(s, "plugins" + fileSeparator + "TownyWars" + fileSeparator + "rebellions.yml");
-	    }
+	 } else
+    	FileMgmt.stringToFile("", "plugins" + fileSeparator + "TownyWars" + fileSeparator + "rebellions.yml");
   }
   
   public static void load(File dataFolder)

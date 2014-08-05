@@ -54,6 +54,11 @@ public class TownyWars
     pm.registerEvents(new WarListener(this), this);
     getCommand("twar").setExecutor(new WarExecutor(this));
     tUniverse = ((Towny)Bukkit.getPluginManager().getPlugin("Towny")).getTownyUniverse();
+    for(Town town : TownyUniverse.getDataSource().getTowns()){
+    	town.setAdminEnabledPVP(false);
+    	town.setAdminDisabledPVP(false);
+    	town.setPVP(false);
+    }
     for (War w : WarManager.getWars()) {
       for (Nation nation : w.getNationsInWar()) {
           for (Town t : nation.getTowns()) {
@@ -61,6 +66,9 @@ public class TownyWars
           }
       }
     }
+    
+    TownyUniverse.getDataSource().saveTowns();
+    
     getConfig().addDefault("pper-player", Double.valueOf(2.0D));
     getConfig().addDefault("pper-plot", Double.valueOf(0.5D));
     getConfig().addDefault("declare-cost", Double.valueOf(10.0D));
