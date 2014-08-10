@@ -66,6 +66,8 @@ class WarExecutor implements CommandExecutor
         cs.sendMessage(ChatColor.AQUA + "/twar reload - " + ChatColor.YELLOW + "Reload the plugin");
         cs.sendMessage(ChatColor.AQUA + "/twar astart [nation] [nation] - " + ChatColor.YELLOW + "Forces two nations to go to war");
         cs.sendMessage(ChatColor.AQUA + "/twar aend [nation] [nation] - " + ChatColor.YELLOW + "Forces two nations to stop a war");
+        cs.sendMessage(ChatColor.AQUA + "/twar aaddtowndp [town] - " + ChatColor.YELLOW + "Adds a DP to the town");
+        cs.sendMessage(ChatColor.AQUA + "/twar aremovetowndp [town] - " + ChatColor.YELLOW + "Removes a DP from the town");
       }
       return true;
     }
@@ -219,11 +221,85 @@ class WarExecutor implements CommandExecutor
       }
       return declareEnd(cs, strings, true);
     }
+    if(farg.equals("aaddtowndp")){
+    	if (!cs.hasPermission("warexecutor.admin"))
+        {
+          cs.sendMessage(ChatColor.RED + "You are not allowed to do this!");
+          return true;
+        }
+        return addTownDp(cs, strings);
+    }
+    if(farg.equals("aremovetowndp")){
+    	if (!cs.hasPermission("warexecutor.admin"))
+        {
+          cs.sendMessage(ChatColor.RED + "You are not allowed to do this!");
+          return true;
+        }
+        return removeTownDp(cs, strings);
+    }
     cs.sendMessage(ChatColor.RED + "Unknown twar command.");
     return true;
   }
   
-  private boolean showRebellion(CommandSender cs, String[] strings, boolean admin) {
+  private boolean addTownDp(CommandSender cs, String[] strings) {
+	Town town = null;
+	if(strings.length != 2){
+		cs.sendMessage(ChatColor.RED + "You need to specify a town!");
+		return false;
+	}
+	
+	try {
+		town = TownyUniverse.getDataSource().getTown(strings[1]);
+	} catch (NotRegisteredException e) {
+		cs.sendMessage(ChatColor.RED + "Town doesn't exist!");
+		return false;
+	}
+	
+	for(War war : WarManager.getWars())
+		for(Nation nation : war.getNationsInWar())
+			if(nation.hasTown(strings[1])){
+				try {
+					war.chargeTownPoints(town.getNation(), town, -1);
+					cs.sendMessage(ChatColor.YELLOW + "Added a DP to " + town.getName());
+				} catch (NotRegisteredException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return true;
+			}
+	return false;
+  }
+  
+  private boolean removeTownDp(CommandSender cs, String[] strings) {
+		Town town = null;
+		if(strings.length != 2){
+			cs.sendMessage(ChatColor.RED + "You need to specify a town!");
+			return false;
+		}
+		
+		try {
+			town = TownyUniverse.getDataSource().getTown(strings[1]);
+		} catch (NotRegisteredException e) {
+			cs.sendMessage(ChatColor.RED + "Town doesn't exist!");
+			return false;
+		}
+			
+		for(War war : WarManager.getWars())
+			for(Nation nation : war.getNationsInWar())
+				if(nation.hasTown(strings[1])){
+					try {
+						war.chargeTownPoints(town.getNation(), town, 1);
+						cs.sendMessage(ChatColor.YELLOW + "Removed a DP from " + town.getName());
+					} catch (NotRegisteredException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return true;
+				}
+		return false;
+	}
+
+private boolean showRebellion(CommandSender cs, String[] strings, boolean admin) {
 	  
 	  Resident res = null;
 	  try {

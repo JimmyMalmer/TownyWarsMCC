@@ -40,7 +40,7 @@ public class WarManager
   public static Town townremove;
   private static final int SAVING_VERSION = 1;
   
-  public static void save(File dataFolder)
+  public static void save()
     throws Exception
   {
 	  FileMgmt.CheckYMLExists(new File("plugins" + fileSeparator + "TownyWars" + fileSeparator + "activeWars.yml"));
@@ -176,6 +176,12 @@ public class WarManager
     
     TownyUniverse.getDataSource().saveTowns();
     TownyUniverse.getDataSource().saveNations();
+    try {
+		WarManager.save();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
   
   public static boolean requestPeace(Nation nat, Nation onat, boolean admin)
@@ -295,6 +301,12 @@ public class WarManager
     
     TownyUniverse.getDataSource().saveTowns();
     TownyUniverse.getDataSource().saveNations();
+    try {
+		WarManager.save();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
   
   public static boolean hasBeenOffered(War ww, Nation nation)

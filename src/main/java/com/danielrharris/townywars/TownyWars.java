@@ -6,6 +6,7 @@ import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -26,18 +27,19 @@ public class TownyWars
   public static double pKill;
   public static double declareCost;
   public static double endCost;
-  
+ 
   public void onDisable()
   {
     try
     {
-      WarManager.save(getDataFolder());
+      WarManager.save();
     }
     catch (Exception ex)
     {
       Logger.getLogger(TownyWars.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
+  
   
   public void onEnable()
   {

@@ -67,6 +67,12 @@ public class WarListener
 	  }
 	  
 	  TownyUniverse.getDataSource().saveNations();
+	  try {
+			WarManager.save();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
   }
   @EventHandler
   public void onPlayerJoin(PlayerJoinEvent event)
@@ -116,6 +122,13 @@ public class WarListener
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+    
+    try {
+		WarManager.save();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
   
   @EventHandler
@@ -135,6 +148,12 @@ public class WarListener
       return;
     }
     war.chargeTownPoints(n, event.getTown(), -TownyWars.pPlayer);
+    try {
+		WarManager.save();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
   
   @EventHandler
@@ -149,6 +168,12 @@ public class WarListener
       war.addNationPoint(event.getNation(), event.getTown());
       townadd = null;
     }
+    try {
+		WarManager.save();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
   
   @EventHandler
@@ -160,6 +185,13 @@ public class WarListener
       }
       
       war.removeTown(event.getTown(), event.getNation());
+      
+      try {
+			WarManager.save();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	  
 	 //MAKE FUCKING WORK when a town is disbanded because of lack of funds
     /*if (event.getTown() != WarManager.townremove)
@@ -240,5 +272,12 @@ public class WarListener
       }
     }
     catch (Exception ex) {}
+    
+    try {
+		WarManager.save();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
 }

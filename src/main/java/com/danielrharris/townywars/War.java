@@ -206,6 +206,12 @@ public class War {
 				town.setNation(nation);
 				TownyUniverse.getDataSource().saveNation(nation);
 				TownyUniverse.getDataSource().saveNation(nnation);
+				try {
+					WarManager.save();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				broadcast(
 						nation,
 						ChatColor.GREEN
@@ -242,6 +248,13 @@ public class War {
 							ex);
 				}
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			WarManager.save();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

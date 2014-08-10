@@ -175,6 +175,12 @@ public class Rebellion {
 		TownyUniverse.getDataSource().saveTown(leader);
 		TownyUniverse.getDataSource().saveNation(rebelnation);
 		TownyUniverse.getDataSource().saveNationList();
+		try {
+			WarManager.save();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		cs.sendMessage(ChatColor.RED + "You executed your rebellion and are now at war with your nation!");
 	}
 	
@@ -218,6 +224,12 @@ public class Rebellion {
 		
 		TownyUniverse.getDataSource().saveNation(motherNation);
 		TownyUniverse.getDataSource().saveNation(rebelnation);
+		try {
+			WarManager.save();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void peace(){
@@ -245,6 +257,13 @@ public class Rebellion {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		
+		try {
+			WarManager.save();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public Nation getRebelnation() {
