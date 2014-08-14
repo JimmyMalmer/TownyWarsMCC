@@ -159,10 +159,12 @@ public class War {
 		else if(nat.equals(nation2))
 			nation2points = nat.getNumTowns();
 		for (Town town : nat.getTowns()) {
-			towns.put(town,
-					new MutableInteger((int) (town.getNumResidents()
-							* TownyWars.pPlayer + (60-60*Math.pow(Math.E, (-0.00203*town.getTownBlocks().size()))))));
+			towns.put(town, new MutableInteger((int) getTownMaxPoints(town)));
 		}
+	}
+	
+	public static double getTownMaxPoints(Town town){
+		return town.getNumResidents() * TownyWars.pPlayer + (60-60*Math.pow(Math.E, (-0.00203*town.getTownBlocks().size())));
 	}
 
 	boolean hasNation(Nation onation) {
@@ -197,6 +199,7 @@ public class War {
 				towns.remove(town);
 				Nation nation = WarManager.getWarForNation(nnation).getEnemy(nnation);
 				removeNationPoint(nnation);
+				addNationPoint(nation, town);
 				try {	
 						WarManager.townremove = town;
 						nnation.removeTown(town);

@@ -133,7 +133,7 @@ class WarExecutor implements CommandExecutor
 			cs.sendMessage(ChatColor.RED + "You are not in a Town!");
 			return true;
 		}
-    	Double points = town.getNumResidents() * TownyWars.pPlayer + (60-60*Math.pow(Math.E, (-0.00203*town.getTownBlocks().size())));
+    	Double points = War.getTownMaxPoints(town);
     	
     	cs.sendMessage(ChatColor.YELLOW + "Your towns defense value is currently " +  points.floatValue() + " which result in " + points.intValue() + " defense points!");
     	return true;
