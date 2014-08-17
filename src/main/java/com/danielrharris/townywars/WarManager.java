@@ -186,14 +186,10 @@ public class WarManager
   
   public static boolean requestPeace(Nation nat, Nation onat, boolean admin)
   {
-	boolean isRebelWar = false;
-	for(Rebellion r :Rebellion.getAllRebellions())
-		if(r.getMotherNation() == nat || r.getMotherNation() == onat)
-			isRebelWar = true;
 	  
     if ((admin) || (requestedPeace.contains(onat.getName())))
     {
-      if(isRebelWar)
+      if(getWarForNation(nat).getRebellion() != null)
     	  getWarForNation(nat).getRebellion().peace();
       endWar(nat, onat, true);
       
@@ -270,6 +266,8 @@ public class WarManager
 		    TownyWars.tUniverse.getNationsMap().remove(looser.getName());
     	}
     }
+    
+    //TODO risk of concurrentmodificationexception please fix or something
     for (Town t : looser.getTowns())
     {
       if (!peace && !isRebelWar) {

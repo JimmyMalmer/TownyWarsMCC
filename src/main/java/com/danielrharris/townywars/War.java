@@ -163,8 +163,12 @@ public class War {
 		}
 	}
 	
+	public void addNewTown(Town town){
+		towns.put(town, new MutableInteger((int) getTownMaxPoints(town)));
+	}
+	
 	public static double getTownMaxPoints(Town town){
-		return town.getNumResidents() * TownyWars.pPlayer + (60-60*Math.pow(Math.E, (-0.00203*town.getTownBlocks().size())));
+		return (50-50*Math.pow(Math.E, (-0.04605*town.getNumResidents()))) + (60-60*Math.pow(Math.E, (-0.00203*town.getTownBlocks().size())));
 	}
 
 	boolean hasNation(Nation onation) {

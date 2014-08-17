@@ -31,7 +31,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class WarListener
   implements Listener
 {
-  private static Town townadd;
   
   WarListener(TownyWars aThis) {}
   
@@ -163,11 +162,8 @@ public class WarListener
     if (war == null) {
       return;
     }
-    if (event.getTown() != townadd)
-    {
       war.addNationPoint(event.getNation(), event.getTown());
-      townadd = null;
-    }
+      war.addNewTown(event.getTown());
     try {
 		WarManager.save();
 	} catch (Exception e) {
