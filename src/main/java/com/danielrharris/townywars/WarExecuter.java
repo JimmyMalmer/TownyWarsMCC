@@ -29,14 +29,17 @@ class WarExecutor implements CommandExecutor
   
   public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings)
   {
+	boolean unknownCommand=true;
     if (strings.length == 0)
     {
+    	unknownCommand=false;
       cs.sendMessage(ChatColor.GREEN + "For help with TownyWars, type /twar help");
       return true;
     }
     String farg = strings[0];
     if (farg.equals("reload"))
     {
+    	unknownCommand=false;
       if (!cs.hasPermission("townywars.admin")) {
         return false;
       }
@@ -74,6 +77,7 @@ class WarExecutor implements CommandExecutor
     War w;
     if (farg.equals("status"))
     {
+    	unknownCommand=false;
       if (strings.length == 1)
       {
         cs.sendMessage(ChatColor.GREEN + "List of on-going wars:");
@@ -126,6 +130,7 @@ class WarExecutor implements CommandExecutor
       return true;
     }
     if (farg.equals("showtowndp")){
+    	unknownCommand=false;
     	Town town = null;
     	try {
 			town = TownyUniverse.getDataSource().getResident(cs.getName()).getTown();
@@ -140,6 +145,7 @@ class WarExecutor implements CommandExecutor
     }
     if (farg.equals("neutral"))
     {
+    	unknownCommand=false;
       if (!cs.hasPermission("townywars.neutral"))
       {
         cs.sendMessage(ChatColor.RED + "You are not allowed to do this!");
@@ -184,6 +190,7 @@ class WarExecutor implements CommandExecutor
     }
     if (farg.equals("astart"))
     {
+    	unknownCommand=false;
       if (!cs.hasPermission("townywars.admin"))
       {
         cs.sendMessage(ChatColor.RED + "You are not allowed to do this!");
@@ -192,28 +199,36 @@ class WarExecutor implements CommandExecutor
       return declareWar(cs, strings, true);
     }
     if (farg.equals("declare")) {
+    	unknownCommand=false;
       return declareWar(cs, strings, false);
     }
     if (farg.equals("end")) {
+    	unknownCommand=false;
       return declareEnd(cs, strings, false);
     }
     if (farg.equals("createrebellion")) {
+    	unknownCommand=false;
         return createRebellion(cs,strings, false);
       }
     if (farg.equals("joinrebellion")) {
+    	unknownCommand=false;
     	return joinRebellion(cs,strings, false);
     }
     if (farg.equals("leaverebellion")) {
+    	unknownCommand=false;
     	return leaveRebellion(cs, strings, false);
     }
     if(farg.equals("executerebellion")) {
+    	unknownCommand=false;
       return executeRebellion(cs, strings, false);
     }
     if(farg.equals("showrebellion")) {
+    	unknownCommand=false;
     	return showRebellion(cs, strings, false);
     }
     if (farg.equals("aend"))
     {
+    	unknownCommand=false;
       if (!cs.hasPermission("warexecutor.admin"))
       {
         cs.sendMessage(ChatColor.RED + "You are not allowed to do this!");
@@ -222,6 +237,7 @@ class WarExecutor implements CommandExecutor
       return declareEnd(cs, strings, true);
     }
     if(farg.equals("aaddtowndp")){
+    	unknownCommand=false;
     	if (!cs.hasPermission("warexecutor.admin"))
         {
           cs.sendMessage(ChatColor.RED + "You are not allowed to do this!");
@@ -230,6 +246,7 @@ class WarExecutor implements CommandExecutor
         return addTownDp(cs, strings);
     }
     if(farg.equals("aremovetowndp")){
+    	unknownCommand=false;
     	if (!cs.hasPermission("warexecutor.admin"))
         {
           cs.sendMessage(ChatColor.RED + "You are not allowed to do this!");
@@ -237,7 +254,55 @@ class WarExecutor implements CommandExecutor
         }
         return removeTownDp(cs, strings);
     }
-    cs.sendMessage(ChatColor.RED + "Unknown twar command.");
+    /*try {
+    	Resident targetResident = TownyUniverse.getDataSource().getResident(farg);
+    	Town targetTown = null;
+    	Nation targetNation = null;
+    	try {
+    		targetTown = targetResident.getTown();
+    		try {
+        		targetNation = targetResident.getTown().getNation();
+        	}
+        	catch (NotRegisteredException ex) { }
+    	}
+    	catch (NotRegisteredException ex) { }
+    	String townName = "none";
+    	String nationName = "none";
+    	if (targetTown!=null) {
+    		townName=targetTown.getName();
+    	}
+    	if (targetNation!=null) {
+    		nationName=targetNation.getName();
+    	}
+    	long lastOnline = targetResident.getLastOnline();
+    	long currentTime = System.currentTimeMillis();
+    	String onlineState = "offline";
+    	if (currentTime-lastOnline<1000) { onlineState = "online"; }
+    	cs.sendMessage(ChatColor.GREEN + targetResident.getName()+" ("+onlineState+")");
+    	cs.sendMessage(ChatColor.GREEN + "--------------------");
+    	if (townName.compareTo("none")==0) {
+    		cs.sendMessage("Town: "+ChatColor.GRAY+townName);
+    	}
+    	else {
+    		cs.sendMessage("Town: "+ChatColor.GREEN+townName);
+    	}
+    	if (nationName.compareTo("none")==0) {
+    		cs.sendMessage("Nation: "+ChatColor.GRAY+nationName);
+    	}
+    	else {
+    		cs.sendMessage("Nation: "+ChatColor.GREEN+nationName);
+    	}
+    	cs.sendMessage(ChatColor.GREEN + "--------------------");
+    	unknownCommand=false;
+    }
+
+	catch (NotRegisteredException ex)
+    {
+		cs.sendMessage(ChatColor.RED + farg + " does not exist!");
+    }*/
+    if (unknownCommand) {
+    	cs.sendMessage(ChatColor.RED + "Unknown twar command.");
+    }
     return true;
   }
   

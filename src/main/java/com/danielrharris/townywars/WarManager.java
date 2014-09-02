@@ -9,15 +9,10 @@ import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 import com.palmergames.util.FileMgmt;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -34,11 +29,11 @@ public class WarManager
 {
 
   private static String fileSeparator = System.getProperty("file.separator");
-  private static Set<War> activeWars = new HashSet();
-  private static Set<String> requestedPeace = new HashSet();
-  public static Map<String, MutableInteger> neutral = new HashMap();
+  private static Set<War> activeWars = new HashSet<War>();
+  private static Set<String> requestedPeace = new HashSet<String>();
+  public static Map<String, MutableInteger> neutral = new HashMap<String, MutableInteger>();
   public static Town townremove;
-  private static final int SAVING_VERSION = 1;
+  //private static final int SAVING_VERSION = 1;
   
   public static void save()
     throws Exception

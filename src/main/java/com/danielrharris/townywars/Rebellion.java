@@ -1,15 +1,11 @@
 package main.java.com.danielrharris.townywars;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import main.java.com.danielrharris.townywars.War.MutableInteger;
+//import main.java.com.danielrharris.townywars.War.MutableInteger;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import com.palmergames.bukkit.towny.exceptions.AlreadyRegisteredException;
@@ -61,6 +57,7 @@ public class Rebellion {
 		} catch (NotRegisteredException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("ahhhhhh");
 		}
 			
 		name = slist.get(2);
